@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+
+
+        function sum(a, b) {
+            return new Promise((resolve, reject) => {
+                if (Math.random() > 0.7) {
+                    throw new Error("出错了")
+                }
+                resolve(a + b)
+            })
+        }
+
+        // sum(123, 456)
+        //     .then(result => sum(result, 777))
+        //     .then(result => sum(result, 888))
+        //     .then(result => console.log(result))
+        //     .catch(err => console.log("哎呀出错了，随便返回一个吧", 8888))
+        //     .finally(()=>{
+        //         console.log("finally");
+        //     })
+
+        /*
+            Promise 静态方法
+            Promise.all(iterable)
+            ll需要一个数组（可迭代对象）作为参数，数组中可以存放多个Promise。
+            调用后，all方法会返回一个新Promise，这个Promise会在数组中所有的Promise都执行后完成，并返回所有Promise的结果。
+
+            Promise.allSettled
+            all仅有当全部Promise都完成时才会返回有效数据，而allSettled用法和all一致，
+            但是它里边无论Promise是否完成都会返回数据，只是他会根据不同的状态返回不同的数据。
+            成功：{status:”fulfilled”, value:result}
+            失败：{status:”rejected”, reason:error}
+
+            Promise.race
+            race会返回首先执行完的Promise，而忽略其他未执行完的Promise
+
+
+            Promise.any
+            any和race类似，但是它只会返回第一个成功的Promise，如果所有的Promise都失败才会返回一个错误信息。
+
+
+            Promise.resolve
+            Promise.resolve用来创建一个新的Promise实例，且直接通过resolve存入一个数据。
+
+            Promise.reject
+            Promise.reject用来创建一个新的Promise实例，且直接通过reject存入一个数据。
+        */
+
+        // Promise.all([sum(1, 1), sum(2, 2), sum(3, 3)])
+        //     .then((result) => {
+        //         console.log(result);
+        //     })
+
+        Promise.allSettled([sum(1, 1), sum(2, 2), sum(3, 3)])
+            .then((result) => {
+                console.log(result);
+            })
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

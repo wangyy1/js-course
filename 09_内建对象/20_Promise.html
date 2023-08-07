@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /*
+        https://www.lilichao.com/index.php/2022/10/10/异步编程/
+            resolve和reject都是函数
+            resolve 用来存储运行正确时的数据
+            reject 用来存储运行出错时的错误信息
+        */
+        const promise = new Promise((resolve, reject) => {
+            // throw new Error("出错了!")
+            reject("出错了")
+            setTimeout(() => {
+                resolve("哈哈哈")
+            }, 10000);
+        })
+
+        /*
+            读取Promise中的数据
+            then
+                第一个参数读取 resolve 中存储的数据
+                第二个参数读取 reject 中存储的数据，如果添加catch 捕获方法，这个参数不用设置，否则会报错
+            catch 捕获 reject存储的数据和其他异常，  如 throw 抛出的异常   
+        */
+        // promise.then((data) => {
+        //     console.log(data);
+        // },
+        // (error) => {
+        //     console.log("出错了", data);
+        // }
+        // ).catch((e) => {
+        //     console.log("catch", e);
+        // })
+
+        /*
+            可以连续调用多个then，then执行后每次总会返回一个新的Promise，
+            并将then中回调函数的返回值存储到这个Promise中，如果没有指定返回值则新Promise中不会存储任何值。
+        */
+        // const promise2 = promise.then((data) => {
+        //     console.log("收到结果：", data);
+        //     return "第二步执行结果"
+        // })
+
+        // const promise3 = promise2.then((data) => {
+        //     console.log("收到结果：", data);
+        //     return "第二三执行结果"
+        // })
+
+
+        // 上面代码简写
+        // promise.then(result => {
+        //     console.log("收到结果：", result)
+        //     return "第二步执行结果" // 会作为新的结果存储到新Promise中
+        // }).then(result => {
+        //     console.log("收到结果：", result)
+        //     return "第三步执行结果" // 会作为新的结果存储到新Promise中
+        // })
+
+
+        /*
+        Finally
+
+            finally也是Promise的实例方法之一，和then、catch不同，无论何种情况finally中的回调函数总会执行，
+            通常我们在finally中定义一些无论Promise正确执行与否都需要处理的工作。
+            注意，finally的回调函数不会接收任何参数，同时finally的返回值也不会成为下一步的Promise中的结果。
+            简单说，finally只是编写一些必须要执行的代码，不会对Promise产生任何实质的影响。
+        */
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

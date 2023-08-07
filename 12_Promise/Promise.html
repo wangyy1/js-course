@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /* 
+            同步和异步
+                - 在JS中，通常情况下代码都是同步执行的
+                - 同步执行代码时，如果有一行代码执行速度慢，会造成整个程序的卡顿
+                - 哪些代码执行速度慢呢？
+                    1.向服务器发送请求的代码，执行速度就比较慢
+                        ① 通过JS向服务器发请求
+                        ② 服务器接收处理请求，并返回响应
+                        ③ JS收到请求，对数据进行处理
+
+                - 异步执行代码时，当遇到需要其他进程处理的工作时，JS不需要等待，
+                    而是继续执行其他代码，直到其他进程处理完毕后JS再继续之前的工作
+
+                - JS中的异步主要是通过事件和回调函数实现的，但是这种实现方式会存在一些问题
+                    1. 不能直接通过return设置返回值 （可以通过回调函数来解决这个问题）
+                    2. 当异步过于复杂时，很容易出现回调地狱（增加代码的复杂度，难以维护）
+
+            AJAX（异步的JS和XML）
+                - 就是JS中早期的发送异步请求的方式
+
+                
+        */
+
+
+        // function fn1(cb){
+        //     setTimeout(function(){
+        //         console.log(1)
+        //         // 以异步的方式，来为函数设置返回值
+        //         cb("hello")
+        //     }, 3000)
+
+        //     console.log(2)
+
+        // }
+
+        // fn1((result)=>{
+        //     console.log(result)
+        // })
+
+
+        function fn1(n, cb){
+            setTimeout(()=>{
+                cb(n + 1)
+            }, 1000)
+        }
+
+        function fn2(n, cb){
+            setTimeout(()=>{
+                cb(n + 2)
+            }, 1000)
+        }
+
+        function fn3(n, cb){
+            setTimeout(()=>{
+                cb(n + 3)
+            }, 1000)
+        }
+
+        function fn4(n, cb){
+            setTimeout(()=>{
+                cb(n + 4)
+            }, 1000)
+        }
+
+        // 回调地狱、末日金字塔
+        fn1(10, n => {
+            fn2(n, n => {
+                fn3(n, n => {
+                    fn4(n, n => {
+                        console.log(n)
+                    })
+                })
+            })        
+        })
+
+
+
+        // let result = fn1(10)
+        // result = fn2(result)
+        // result = fn3(result)
+        // result = fn4(result)
+
+        // console.log(result)
+        
+        
+
+
+        // console.log(123)
+        // console.log(789)
+
+
+        // function fn(){
+        //     let begin = Date.now()
+
+        //     while(1){
+        //         if(Date.now() - begin > 15000){
+        //             break
+        //         }
+        //     }
+        // }
+
+
+    </script>
+</head>
+<body>
+    <button id="btn01">点我一下</button>
+    <hr>
+    <script>
+        // btn01.onclick = function(){
+        //     // https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json
+        //     var xhr = new XMLHttpRequest()
+
+        //     // 监听xhr的onload，JS中通过事件和回调函数来实现异步
+        //     xhr.onload = function(){
+        //         // 可以用来设置响应数据的处理方式
+        //         console.log(JSON.parse(xhr.response))
+        //         document.body.insertAdjacentHTML("beforeend", xhr.response)
+        //     }
+
+        //     // 设置请求信息
+        //     xhr.open("get", "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json");
+
+        //     // 发送请求
+        //     xhr.send()
+
+        // }
+
+    </script>
+</body>
+</html>

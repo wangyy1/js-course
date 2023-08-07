@@ -37,7 +37,7 @@
                                         而是一个经过jQuery包装过的新的对象，这个对象我们称其为jQuery对象
                                         jQuery对象中为我们提供了很多新的方法，方便我们做各种DOM操作
                                             但是jQuery对象不能直接调用原生DOM对象的方法
-                                            通过我们为jQuery对象命名时，会使用$开头，加以区分
+                                            通常我们为jQuery对象命名时，会使用$开头，加以区分
 
                             - 将DOM对象作为参数
                                 - 可以将DOM对象转换为jQuery对象，从而使用jQuery对象的方法
@@ -71,7 +71,7 @@
 
                 var $btn = $("#btn01") // [object Object]
 
-                // alert($(btn))
+                // alert($(btn)) // 将DOM对象作为参数
 
                 var $h1 = $("<h1>我是一个标题</h1>") // 会根据html代码创建元素
 

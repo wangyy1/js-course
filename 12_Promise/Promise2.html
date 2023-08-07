@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        /* 
+        为了解决异步带来的问题，JS中推出了新的对象Promise
+        - Promise就是JS中专门用来存储异步代码的对象，
+            它可以确保异步代码的执行和结果的返回
+    */
+
+        // 创建一个Promise，它需要一个回调函数作为参数，可以将需要它来执行的代码编写到函数中
+        // Promise 的回调函数中可以指定两个参数 resolve reject
+        // resolve 在代码正常执行时，来设置返回值的
+        // reject（可选地） 在代码执行出错时，用来设置错误信息
+        const myPromise = new Promise((resolve) => {
+            setTimeout(() => {
+                // console.log("异步代码~")
+                // 设置返回值
+                resolve(777)
+            }, 1000)
+        })
+
+        // 获取Promise中的返回值，当Promise中的代码正常执行时，会自动通过then()方法的回调函数来返回结果
+        // myPromise
+        //     .then((result) => console.log(result))
+        //     .catch((e) => console.log(e))
+
+        function fn1(n) {
+            return new Promise((resolve) => {
+                setTimeout(function () {
+                    resolve(n + 1)
+                }, 1000)
+            })
+        }
+
+        function fn2(n) {
+            return new Promise((resolve) => {
+                setTimeout(function () {
+                    resolve(n + 2)
+                }, 1000)
+            })
+        }
+
+        function fn3(n) {
+            return new Promise((resolve) => {
+                setTimeout(function () {
+                    resolve(n + 3)
+                }, 1000)
+            })
+        }
+
+        function fn4(n) {
+            return new Promise((resolve) => {
+                setTimeout(function () {
+                    resolve(n + 4)
+                }, 1000)
+            })
+        }
+
+        fn1(10)
+            .then((n) => fn2(n))
+            .then((n) => fn3(n))
+            .then((n) => fn4(n))
+            .then(console.log)
+            .catch(() => console.log("出错了！！"))
+    </script>
+</head>
+
+<body>
+    <button id="btn01">点我一下</button>
+    <hr />
+    <script>
+        btn01.onclick = function () {
+            // https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json
+            /* 
+            fetch 也是发送异步请求的工具，它基于Promise，相较于AJAX更加方便
+        */
+            fetch(
+                "https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json"
+            )
+                .then((resp) => resp.json())
+                .then(data => console.log(data))
+                .catch(() => console.log("出错了~"))
+        }
+    </script>
+</body>
+
+</html>

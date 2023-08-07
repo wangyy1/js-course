@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script type="module">
+        function fn() {
+            return new Promise(resolve => {
+                resolve(10)
+            })
+        }
+
+        // fn().then(console.log)
+        // fn().then((result) => {
+        //     console.log(result)
+        // })
+
+        /*
+            在JS中 可以通过async关键字来快速的创建异步函数
+                特点：
+                    1.async声明的异步函数，它的返回值会自动包装为Promise
+                    2.async声明的异步函数中可以使用await来调用其他异步函数
+
+            await         
+                - 调用异步函数时，可以直接在函数前使用await关键字来对其进行调用
+                    调用await，它会等待Promise执行出结果返回，可以通过变量来接收结果
+                    注意：await并不是将异步函数改变为同步函数，只是改变了异步函数的调用方式
+                        所以await不是说在哪都能用的!
+                        当我们使用了await,catch方法就不能调用了，只能通过try-catch来处理可能的异步
+                - await 使用的位置：
+                    1.async 声明的异步函数中
+                    2.可以在模块的外层的作用域中使用await //<script type="module">
+
+        */
+
+        async function fn2() {
+            return 10
+        }
+
+        async function fn3(num) {
+            return num + 10
+        }
+
+        async function fn4(num) {
+            return num + 11
+        }
+
+        async function fn5(num) {
+            return num + 15
+        }
+
+
+        // fn2()
+        // .then(fn3)
+        // .then(fn4)
+        // .then(fn5)
+        // .then(console.log)
+        // .catch(e => console.log("出错了"))
+
+
+
+        async function fn6() {
+            try {
+                let result = await fn2()
+                result = await fn3(result)
+                result = await fn4(result)
+                result = await fn5(result)
+                console.log(result);
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
+        fn6()
+        // try {
+        //     let result = await fn2()
+        //     result = await fn3(result)
+        //     result = await fn4(result)
+        //     result = await fn5(result)
+        //     console.log(result);
+        // } catch (e) {
+        //     console.log(e);
+        // }
+
+
+
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
